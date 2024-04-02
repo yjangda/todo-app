@@ -14,6 +14,18 @@ class UserServices{
         }
     }
 
+    static async checkUser(email){
+        try {
+            return await UserModel.findOne({email});
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    static async generateAccessToken(tokenData,JWTSecret_Key,JWT_EXPIRE){
+        return jwt.sign(tokenData, JWTSecret_Key, { expiresIn: JWT_EXPIRE });
+    }
+
     
 }
 

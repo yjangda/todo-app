@@ -31,7 +31,16 @@ userSchema.pre("save",async function(){
     }
 });
 
-
+userSchema.methods.comparePassword = async function (candidatePassword) {
+    try {
+        console.log('----------------no password',this.password);
+        // @ts-ignore
+        const isMatch = await bcrypt.compare(candidatePassword, this.password);
+        return isMatch;
+    } catch (error) {
+        throw error;
+    }
+};
 
 
 const UserModel = db.model('user',userSchema);
